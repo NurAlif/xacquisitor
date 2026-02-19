@@ -31,9 +31,11 @@ The application uses a two-layered acquisition strategy to maximize efficiency a
     python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
     pip install -r requirements.txt
-    playwright install chromium
     ```
-4.  **Cookies**:
+4.  **Setup Playwright**:
+    - **macOS/Linux**: `chmod +x scripts/setup_playwright.sh && ./scripts/setup_playwright.sh`
+    - **Windows**: `.\scripts\setup_playwright.ps1`
+5.  **Cookies**:
     - Run the app: `python run.py`
     - Go to `Manage Playwright Cookies` (Option 'C')
     - Paste your X cookies in JSON format (e.g., from "EditThisCookie" or "Cookie-Editor" extensions).
