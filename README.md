@@ -4,9 +4,16 @@ A standalone, stateful pipeline for discovering, enriching, and scoring early-st
 
 ## Features
 
-- **Handle-based Mining**: Organize targets by topic and add handles or X URLs manually.
+- **X API v2 Discovery**: Rapidly find handles by searching for keywords in recent tweets or bios.
 - **AI-Assisted Personas**: Use DeepSeek LLM to brainstorm high-signal builder personas.
-- **Playwright Enrichment**: Scrape bio, followers, and latest posts directly from X.
+- **Playwright Enrichment**: Scrape bio, followers, and latest posts directly from X for deep intelligence.
+
+## Mining Strategy
+
+The application uses a two-layered acquisition strategy to maximize efficiency and depth:
+
+1.  **Discovery (X API v2)**: The "Mining" stage uses the official X API v2 to search for recent activity matching your target topics. This is used for fast, broad discovery of handles without the risk of browser-based rate limits during the initial finding phase.
+2.  **Enrichment (Playwright)**: Once handles are found, the app uses Playwright to perform deep scraping of the profile, bio, and last 10 posts. This bypasses the limitations of the API v2 (which often requires expensive tiers for deep data) and provides more technical context for the scoring engine.
 - **Intelligence Scoring**: 6-component scoring system (0-100) using LLM evaluation and semantic analysis.
 - **Dual Classification**: Categorize builders into Founders, Researchers, Operators, or Investors.
 - **Export**: Results available in clean JSON and flat CSV formats.

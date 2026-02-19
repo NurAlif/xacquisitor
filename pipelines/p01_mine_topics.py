@@ -81,6 +81,58 @@ Example: ["indie AI agent builder", "LLM infra startup founder"]"""
         return []
 
 
+def search_x_api_v2(query: str, max_results: int = 10) -> List[Dict]:
+    """Search X API v2 for users who recently tweeted about a topic."""
+    from config import X_BEARER_TOKEN
+    if not X_BEARER_TOKEN:
+        print(f"  {C.R}✗ X_BEARER_TOKEN not set.{C.END}")
+        return []
+
+    # Search for recent tweets matching the query
+    # We want authors, so we'll expand author_id
+    url = "https://api.twitter.com/2/tweets/search/recent"
+    params = {
+        "query": f"{query} -is:retweet -is:reply lang:en",
+        "max_results": min(100, max(10, max_results)),
+        "expansions": "author_id",
+        "user.fields": "username,name,description,public_metrics,verified,location,url,profile_image_url",
+    }
+    headers = {"Authorization": f"Bearer {X_BEARER_TOKEN}"}
+
+    try:
+        resp = requests.get(url, headers=headers, params=params, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+        
+        users = data.get("includes", {}).get("users", [])
+        profiles = []
+        for u in users:
+            handle = u["username"].lower()
+            profiles.append({
+                "handle": handle,
+                "display_name": u.get("name"),
+                "bio": u.get("description"),
+                "platform_id": u.get("id"),
+                "platform": "x",
+                "followers_count": u.get("public_metrics", {}).get("followers_count"),
+                "following_count": u.get("public_metrics", {}).get("following_count"),
+                "tweet_count": u.get("public_metrics", {}).get("tweet_count"),
+                "verified": u.get("verified", False),
+                "profile_url": f"https://x.com/{handle}",
+                "profile_image_url": u.get("profile_image_url"),
+                "location": u.get("location"),
+                "website": u.get("url"),
+                "account_created_at": None,
+                "source_topic": None, 
+                "found_via_tweet": None, # Search results don't easily map back to a specific tweet here without more work
+                "discovered_at": datetime.utcnow().isoformat(),
+            })
+        return profiles
+    except Exception as e:
+        print(f"  {C.R}✗ X API search failed: {e}{C.END}")
+        return []
+
+
 def run(selected_topics: List[str] = None):
     state = PipelineState()
     existing_handles = state.get_all_handles()
@@ -95,6 +147,7 @@ def run(selected_topics: List[str] = None):
             pass
 
     topics_to_process = []
+    is_manual = True
 
     if selected_topics:
         topics_to_process = selected_topics
@@ -104,6 +157,7 @@ def run(selected_topics: List[str] = None):
         print(f"\n  {C.BOLD}How would you like to proceed?{C.END}")
         print(f"  {C.B}1{C.END}  Add handles to a new topic")
         print(f"  {C.B}2{C.END}  Generate topic ideas using AI")
+        print(f"  {C.B}3{C.END}  Search X via API v2 (find users by topic)")
         choice = input(f"\n  {C.W}▸ {C.END}").strip()
 
         if choice == "2":
@@ -116,10 +170,20 @@ def run(selected_topics: List[str] = None):
                 print(f"  {C.G}✓ Added {len(ideas)} ideas to Topic Management.{C.END}")
             return
 
-        if choice == "1":
+        if choice == "3":
+            topic = input(f"  Enter search topic: ").strip()
+            if topic:
+                topics_to_process = [topic]
+                is_manual = False
+            else:
+                return
+        elif choice == "1":
             topic = input(f"  Enter topic/category name: ").strip()
             if topic:
                 topics_to_process = [topic]
+                is_manual = True
+        else:
+            return
 
     if not topics_to_process:
         return
@@ -127,50 +191,68 @@ def run(selected_topics: List[str] = None):
     new_profiles = []
     for topic in topics_to_process:
         state.add_topic(topic)
-        print(f"\n  {C.BOLD}Category: {topic}{C.END}")
-        print(f"  Enter handles (one per line, empty to finish):")
+        print(f"\n  {C.BOLD}Category/Topic: {topic}{C.END}")
         
-        while True:
-            raw_input = input(f"  {C.W}▸ @{C.END}").strip().lower()
-            if not raw_input:
-                break
+        found_profiles = []
+        if not is_manual:
+            print(f"  {C.D}Searching X API v2...{C.END}")
+            found_profiles = search_x_api_v2(topic, max_results=20)
+            print(f"    Found {len(found_profiles)} potential profiles via search.")
+        else:
+            print(f"  Enter handles (one per line, empty to finish):")
+            while True:
+                raw_input = input(f"  {C.W}▸ @{C.END}").strip().lower()
+                if not raw_input:
+                    break
+                    
+                handle = raw_input.replace("@", "")
+                if "twitter.com/" in handle or "x.com/" in handle:
+                    match = re.search(r"(?:twitter\.com|x\.com)/([a-zA-Z0-9_]{1,15})", handle)
+                    if match:
+                        handle = match.group(1)
                 
-            # Basic cleaning (remove @ if present, extract from URL if pasted)
-            handle = raw_input.replace("@", "")
-            if "twitter.com/" in handle or "x.com/" in handle:
-                match = re.search(r"(?:twitter\.com|x\.com)/([a-zA-Z0-9_]{1,15})", handle)
-                if match:
-                    handle = match.group(1)
+                found_profiles.append({"handle": handle, "manual": True})
 
+        added = 0
+        for p_data in found_profiles:
+            handle = p_data["handle"]
             if handle in existing_handles:
-                print(f"    {C.D}(@{handle} already exists, skipping){C.END}")
+                if is_manual:
+                    print(f"    {C.D}(@{handle} already exists, skipping){C.END}")
                 continue
 
-            # Create skeleton profile
+            # Create/Fill profile
             profile = {
                 "handle": handle,
-                "display_name": None,
-                "bio": None,
-                "platform_id": None,
+                "display_name": p_data.get("display_name"),
+                "bio": p_data.get("bio"),
+                "platform_id": p_data.get("platform_id"),
                 "platform": "x",
-                "followers_count": None,
-                "following_count": None,
-                "tweet_count": None,
-                "verified": False,
+                "followers_count": p_data.get("followers_count"),
+                "following_count": p_data.get("following_count"),
+                "tweet_count": p_data.get("tweet_count"),
+                "verified": p_data.get("verified", False),
                 "profile_url": f"https://x.com/{handle}",
-                "profile_image_url": None,
-                "location": None,
-                "website": None,
+                "profile_image_url": p_data.get("profile_image_url"),
+                "location": p_data.get("location"),
+                "website": p_data.get("website"),
                 "account_created_at": None,
                 "source_topic": topic,
-                "found_via_tweet": None,
+                "found_via_tweet": p_data.get("found_via_tweet"),
                 "discovered_at": datetime.utcnow().isoformat(),
             }
             new_profiles.append(profile)
             existing_handles.add(handle)
             state.add_profile(handle)
             state.mark_processed(handle, "mined")
-            print(f"    {C.G}✓ Added @{handle}{C.END}")
+            added += 1
+            if is_manual:
+                print(f"    {C.G}✓ Added @{handle}{C.END}")
+
+        if not is_manual:
+            print(f"    Added {added} new profiles to pipeline.")
+        
+        state.update_topic_status(topic, "completed", results_count=len(found_profiles))
 
     # Merge and save
     if new_profiles:
