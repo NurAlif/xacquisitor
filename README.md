@@ -36,7 +36,7 @@ Other core capabilities include:
     pip install -r requirements.txt
     ```
 4.  **Setup Playwright**:
-    - macOS/Linux: Execute `chmod +x scripts/setup_playwright.sh && ./scripts/setup_playwright.sh`
+    - Linux: Execute `chmod +x scripts/setup.sh && ./scripts/setup.sh`
     - Windows: Run `.\scripts\setup_playwright.ps1`
 5.  **Cookies**:
     - Run the application using `python run.py`.

@@ -1,12 +1,16 @@
 #!/bin/bash
-# VPS Setup Script for Streamlined AI Scout
+# Linux Setup Script for Streamlined AI Scout
 
-echo "🚀 Starting VPS Setup..."
+echo "🚀 Starting Linux Setup..."
 
-# Update and install system dependencies
-echo "📦 Installing system dependencies..."
-sudo apt-get update
-sudo apt-get install -y python3-pip python3-venv python3-full unzip tar
+# Update and install system dependencies (Debian/Ubuntu fallback)
+if command -v apt-get &> /dev/null; then
+    echo "📦 Installing system dependencies via apt..."
+    sudo apt-get update
+    sudo apt-get install -y python3-pip python3-venv python3-full unzip tar
+else
+    echo "⚠️  Non-Debian system detected. Please ensure python3-pip, python3-venv, and tar are installed."
+fi
 
 # Create virtual environment with more robust check
 if [ ! -d "venv" ]; then
@@ -35,5 +39,5 @@ if [ -f "cookies.txt" ]; then
     python3 scripts/import_cookies.py cookies.txt x_cookies.json
 fi
 
-echo "✅ VPS Setup Complete!"
+echo "✅ Linux Setup Complete!"
 echo "👉 Run the app with: source venv/bin/activate && python run.py"
