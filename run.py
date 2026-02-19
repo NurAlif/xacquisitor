@@ -391,10 +391,10 @@ def show_help():
     print(f"  {C.B}Export{C.END}    → Generate clean JSON and CSV results for outreach.")
     
     print(f"\n  {C.BOLD}2. Topic Management:{C.END}")
-    print(f"  - This is where you feed the engine keywords or queries.")
-    print(f"  - You can enter queries like \"AI agent builder\" or \"shipped a new LLM tool\".")
-    print(f"  - {C.G}AI Generation{C.END}: Let DeepSeek suggest high-signal search queries for you.")
-    print(f"  - The engine searches Tavily to find profile URLs and extracts the handles.")
+    print(f"  - This is where you find new handles for the pipeline.")
+    print(f"  - {C.B}Search X API v2{C.END}: Use keywords to find users who recently tweeted.")
+    print(f"  - {C.B}Manual Entry{C.END}: Directly add handles or paste X/Twitter URLs.")
+    print(f"  - {C.G}AI Generation{C.END}: Let DeepSeek suggest high-signal search queries/personas.")
     
     print(f"\n  {C.BOLD}3. Cookie Management:{C.END}")
     print(f"  - Enrichment requires a logged-in X session to avoid aggressive rate limits.")
