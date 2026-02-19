@@ -4,7 +4,8 @@ A standalone, stateful pipeline for discovering, enriching, and scoring early-st
 
 ## Features
 
-- **Topic-based Mining**: Find profiles using Tavily search and DeepSeek LLM.
+- **Handle-based Mining**: Organize targets by topic and add handles or X URLs manually.
+- **AI-Assisted Personas**: Use DeepSeek LLM to brainstorm high-signal builder personas.
 - **Playwright Enrichment**: Scrape bio, followers, and latest posts directly from X.
 - **Intelligence Scoring**: 6-component scoring system (0-100) using LLM evaluation and semantic analysis.
 - **Dual Classification**: Categorize builders into Founders, Researchers, Operators, or Investors.
