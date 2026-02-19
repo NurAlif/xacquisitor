@@ -1,4 +1,4 @@
-# AI Builder Scout — Streamlined
+# Streamlined AI Builder Scout
 
 A standalone, stateful pipeline for discovering, enriching, and scoring early-stage AI builders on X (Twitter).
 
