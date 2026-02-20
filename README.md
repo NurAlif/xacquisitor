@@ -10,7 +10,10 @@ A standalone, stateful pipeline for discovering, enriching, and scoring early-st
 
 ## Try it out here https://parasyst.it.com
 ![alt text](screenshoot.png)
+
+
 **password: alif**
+
 
 ## Mining Strategy
 
