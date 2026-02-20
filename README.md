@@ -8,6 +8,10 @@ A standalone, stateful pipeline for discovering, enriching, and scoring early-st
 - Leverage the DeepSeek LLM to brainstorm high-signal builder personas.
 - Directly scrape bios, follower counts, and the latest posts from X using Playwright for deep intelligence.
 
+## Try it out here https://parasyst.it.com
+![alt text](screenshoot.png)
+**password: alif**
+
 ## Mining Strategy
 
 The application uses a two-layered acquisition strategy to maximize efficiency and depth. 
