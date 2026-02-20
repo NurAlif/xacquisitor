@@ -13,14 +13,14 @@ To achieve fault-free scaling, the architecture transitions from a linear script
 A centralized orchestrator that makes real-time decisions on routing workloads. It monitors system health, tracks API costs, and dynamically assigns tasks to the most efficient extraction method. Tracks success rates, average latencies, and auto-triggers circuit breakers if APIs fail. Implement a web user interface to monitor and control the whole data aquisition operation.
 
 ### Mining Nodes
-Stateless Docker containers operating as specialized workers, utilizing mixed approach and switchable mining strategy to get the best efficiency and to avoid the fragility of relying on one method:
-- **(Official APIs)**: X API v2. High reliability, high cost. Used for priority targets.
-- **(Proxy Providers)**: Apify, SocialData. Balances proxy management, IP rotation, and moderate cost for bulk data collection.
-- **(Self-Hosted Browsers)**: Playwright clusters. Heaviest and most brittle, utilized as a fallback or for specialized data extraction. Unstable and hard to maintain. (Last resort but can be cheapest)
+Stateless Docker containers operating as specialized workers, utilizing mixed approach and switchable mining strategy to get the best efficiency and to avoid the fragility of relying on one method. Push the result to a normalization layer to handle the different data formats from the different mining methods into normalized data structure.
+- **Official APIs**: X API v2. High reliability, high cost. Used for priority targets. There are even different options of API  kind from X to use if accessible (might be cheaper).
+- **Proxy Providers**: Apify, SocialData. Balances proxy management, IP rotation, and moderate cost for bulk data collection.
+- **Self-Hosted Browsers**: Playwright clusters. Heaviest and most brittle, utilized as a fallback or for specialized data extraction. Unstable and hard to maintain. (Last resort but can be cheapest)
 
 ### Normalization Layer
-Extracting data from diverse sources (X API, Apify, GitHub) yields inconsistent schemas. This layer converts all payloads into a standardized `InternalProfile` schema. 
-- **Entity Resolution Engine**: Matches diverse profiles using handle, bio-similarity algorithms (Jaccard), and linked cross-platform accounts to form a canonical "Builder Identity."
+Extracting data from diverse sources (X API, Apify, GitHub) yields inconsistent schemas. This layer converts all payloads into a standardized schema. 
+- **Entity Resolution Engine (Deduplication)**: Use X's account user_id identifier, not @username handle, since it can be changed. Futhermore we can matches diverse profiles using handle, bio-similarity algorithms (Jaccard), and linked cross-platform accounts to form a canonical "Builder Identity."
 
 ### Centralized Cloud Storage
 - **Primary Database (RDS PostgreSQL)**: Houses structured canonical profiles, scores, relationships, and JSONB raw payloads.
