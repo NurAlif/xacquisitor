@@ -196,7 +196,7 @@ wss.on('connection', (ws, request) => {
 
     if (ptyInfo && ptyInfo.pty) {
         // Reattach to existing PTY
-        ptyInfo.ws = ws;
+        ptyInfo.clients.add(ws);
         if (ptyInfo.buffer) {
             // Restore visual state
             ws.send(JSON.stringify({ type: 'output', data: ptyInfo.buffer }));
@@ -217,7 +217,7 @@ wss.on('connection', (ws, request) => {
             }
         });
 
-        ptyInfo = { pty: ptyProc, ws, buffer: '' };
+        ptyInfo = { pty: ptyProc, clients: new Set([ws]), buffer: '' };
         ptyProcesses.set(sessionId, ptyInfo);
 
         ptyProc.onData((data) => {
@@ -228,17 +228,21 @@ wss.on('connection', (ws, request) => {
                 if (info.buffer.length > 50000) {
                     info.buffer = info.buffer.slice(-50000);
                 }
-                if (info.ws && info.ws.readyState === WebSocket.OPEN) {
-                    info.ws.send(JSON.stringify({ type: 'output', data }));
-                }
+                info.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify({ type: 'output', data }));
+                    }
+                });
             }
         });
 
         ptyProc.onExit(() => {
             ptyProcesses.delete(sessionId);
-            if (ws.readyState === WebSocket.OPEN) {
-                ws.send(JSON.stringify({ type: 'exit' }));
-            }
+            info.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify({ type: 'exit' }));
+                }
+            });
         });
     }
 
@@ -264,9 +268,11 @@ wss.on('connection', (ws, request) => {
     });
 
     ws.on('close', () => {
-        // Don't kill the PTY on disconnect — it persists for reconnection
+        // Remove this client from the connection list but keep the pty process alive
         const info = ptyProcesses.get(sessionId);
-        if (info) info.ws = null;
+        if (info && info.clients) {
+            info.clients.delete(ws);
+        }
     });
 });
 
