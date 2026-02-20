@@ -62,4 +62,6 @@ python run.py
 - `models.py` defines the Pydantic data models used throughout the app.
 - `config.py` handles configuration and constants.
 - `state.py` manages the pipeline state.
-- `cookies_util.py` provides utilities for managing cookies.
+- `cookies_util.py` provides utilities for 
+managing cookies.
+- `webapp/` contains the web interface for the application. (optional)
