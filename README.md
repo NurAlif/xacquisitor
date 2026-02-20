@@ -28,6 +28,10 @@ Other core capabilities include:
 - Dual classification that categorizes builders into Founders, Researchers, Operators, or Investors.
 - Results exported into clean JSON and flat CSV formats.
 
+## Scaling Plan
+
+For a detailed roadmap on how this tool will evolve with BERT-based classification, dimensionality reduction (UMAP/HDBSCAN), and advanced visualization, see the [Scaling Write-up](scaling-write-up.md).
+
 ## Setup
 
 1.  **Clone/Copy**: Copy this directory to your desired location.
