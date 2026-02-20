@@ -12,8 +12,9 @@ A standalone, stateful pipeline for discovering, enriching, and scoring early-st
 ![alt text](screenshoot.png)
 
 
-**password: alif**
+### **password: alif**
 
+## Scaling Plan is here [scaling-write-up.md](scaling-write-up.md)
 
 ## Mining Strategy
 
@@ -27,10 +28,6 @@ Other core capabilities include:
 - A 6-component scoring system (0-100) that utilizes LLM evaluation and semantic analysis for intelligence.
 - Dual classification that categorizes builders into Founders, Researchers, Operators, or Investors.
 - Results exported into clean JSON and flat CSV formats.
-
-## Scaling Plan
-
-For a detailed roadmap on how this tool will evolve with BERT-based classification, dimensionality reduction (UMAP/HDBSCAN), and advanced visualization, see the [Scaling Write-up](scaling-write-up.md).
 
 ## Setup
 
