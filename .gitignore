@@ -8,3 +8,4 @@ data/
 x_cookies.json
 results/
 .pytest_cache/
+webapp/node_modules/
