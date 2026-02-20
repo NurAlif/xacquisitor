@@ -172,30 +172,7 @@ app.post('/api/restart', requireAuth, (req, res) => {
 const wss = new WebSocket.Server({ noServer: true });
 const ptyProcesses = new Map(); // sessionId -> { pty, ws }
 
-// Command validation: only allow python .py files
-function isAllowedCommand(cmd) {
-    const trimmed = cmd.trim();
-    if (!trimmed) return true; // empty input is fine (Enter key)
-
-    // Allow basic terminal control
-    const allowedPrefixes = [
-        'python3 ', 'python ', './venv/bin/python ',
-        'cd ', 'ls', 'cat ', 'head ', 'tail ', 'less ', 'more ',
-        'clear', 'pwd', 'echo ', 'wc ', 'grep ', 'find ',
-        'help', 'exit', 'quit'
-    ];
-
-    // Check if it starts with an allowed prefix
-    for (const prefix of allowedPrefixes) {
-        if (trimmed.startsWith(prefix) || trimmed === prefix.trim()) {
-            return true;
-        }
-    }
-
-    // Block everything else
-    return false;
-}
-
+// Command validation removed: restricted shell handles this directly
 server.on('upgrade', (request, socket, head) => {
     // Parse session from cookie
     sessionParser(request, {}, () => {
@@ -220,10 +197,13 @@ wss.on('connection', (ws, request) => {
     if (ptyInfo && ptyInfo.pty) {
         // Reattach to existing PTY
         ptyInfo.ws = ws;
-        ws.send(JSON.stringify({ type: 'output', data: '\r\n[Reconnected to existing session]\r\n' }));
+        if (ptyInfo.buffer) {
+            // Restore visual state
+            ws.send(JSON.stringify({ type: 'output', data: ptyInfo.buffer }));
+        }
     } else {
-        // Create new PTY
-        const ptyProc = pty.spawn('bash', ['--norc', '--noprofile'], {
+        // Create new PTY with custom restricted shell wrapper
+        const ptyProc = pty.spawn('bash', ['webapp/shell.sh'], {
             name: 'xterm-256color',
             cols: 120,
             rows: 30,
@@ -237,16 +217,20 @@ wss.on('connection', (ws, request) => {
             }
         });
 
-        // Send initial prompt setup
-        ptyProc.write('source venv/bin/activate 2>/dev/null; PS1="xacquisitor> "; clear\r');
-
-        ptyInfo = { pty: ptyProc, ws };
+        ptyInfo = { pty: ptyProc, ws, buffer: '' };
         ptyProcesses.set(sessionId, ptyInfo);
 
         ptyProc.onData((data) => {
             const info = ptyProcesses.get(sessionId);
-            if (info && info.ws && info.ws.readyState === WebSocket.OPEN) {
-                info.ws.send(JSON.stringify({ type: 'output', data }));
+            if (info) {
+                // Keep the last 50,000 characters in memory for visual persistence
+                info.buffer += data;
+                if (info.buffer.length > 50000) {
+                    info.buffer = info.buffer.slice(-50000);
+                }
+                if (info.ws && info.ws.readyState === WebSocket.OPEN) {
+                    info.ws.send(JSON.stringify({ type: 'output', data }));
+                }
             }
         });
 
@@ -258,9 +242,6 @@ wss.on('connection', (ws, request) => {
         });
     }
 
-    // Buffer for building up a command line
-    let commandBuffer = '';
-
     ws.on('message', (msg) => {
         try {
             const parsed = JSON.parse(msg.toString());
@@ -268,33 +249,8 @@ wss.on('connection', (ws, request) => {
             if (parsed.type === 'input') {
                 const info = ptyProcesses.get(sessionId);
                 if (info && info.pty) {
-                    // Track command input for validation
-                    const input = parsed.data;
-
-                    // If it's a newline/enter, validate the accumulated command
-                    if (input === '\r' || input === '\n') {
-                        if (!isAllowedCommand(commandBuffer)) {
-                            ws.send(JSON.stringify({
-                                type: 'output',
-                                data: '\r\n\x1b[91m⚠ Only Python scripts (.py) and basic commands are allowed.\x1b[0m\r\nxacquisitor> '
-                            }));
-                            commandBuffer = '';
-                            return;
-                        }
-                        info.pty.write(input);
-                        commandBuffer = '';
-                    } else if (input === '\x7f' || input === '\b') {
-                        // Backspace
-                        commandBuffer = commandBuffer.slice(0, -1);
-                        info.pty.write(input);
-                    } else if (input === '\x03') {
-                        // Ctrl+C - always allow
-                        commandBuffer = '';
-                        info.pty.write(input);
-                    } else {
-                        commandBuffer += input;
-                        info.pty.write(input);
-                    }
+                    // Send directly to PTY — the custom shell handles validation seamlessly
+                    info.pty.write(parsed.data);
                 }
             } else if (parsed.type === 'resize') {
                 const info = ptyProcesses.get(sessionId);

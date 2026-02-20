@@ -39,16 +39,16 @@ def generate_topics_llm(count: int = 5) -> List[str]:
         print(f"  {C.R}✗ DeepSeek API key not set — cannot generate ideas.{C.END}")
         return []
 
-    prompt = f"""Generate exactly {count} short descriptions of early-stage AI builders on X/Twitter to look for.
-These should define specific technical personas.
+    prompt = f"""Generate exactly {count} highly searchable, simple keywords or short phrases (1-3 words max) that early-stage AI builders on X/Twitter frequently use in their tweets or bios.
+The goal is to use these as raw search queries on X to find their profiles. Do NOT generate complex descriptions or long personas.
 
-Focus on builders who:
-- Ship code and products (not just commentators)
-- Work on AI agents, LLM tools, fine-tuning, indie hackers
-- Share technical progress publicly
+Focus on terms related to:
+- Shipping AI code and products
+- AI agents, LLMs, fine-tuning, RAG, indie hacking
+- Technical progress and building in public
 
 Return ONLY a JSON array of strings. No other text.
-Example: ["indie AI agent builder", "LLM infra startup founder"]"""
+Example: ["building an agent", "fine-tuning", "RAG pipeline", "LLM wrapper", "indie hacker AI"]"""
 
     headers = {
         "Authorization": f"Bearer {DEEPSEEK_KEY}",

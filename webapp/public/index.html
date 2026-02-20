@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,613 +26,1051 @@
       --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --radius: 6px;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--sans); background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+    }
 
     /* Login */
     #login-screen {
-      display: flex; align-items: center; justify-content: center;
-      height: 100vh; background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: var(--bg);
     }
+
     .login-box {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 32px; width: 320px; text-align: center;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      width: 320px;
+      text-align: center;
     }
-    .login-box h1 { font-size: 18px; margin-bottom: 4px; color: var(--accent); font-family: var(--font); }
-    .login-box p { font-size: 12px; color: var(--text2); margin-bottom: 20px; }
+
+    .login-box h1 {
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--accent);
+      font-family: var(--font);
+    }
+
+    .login-box p {
+      font-size: 12px;
+      color: var(--text2);
+      margin-bottom: 20px;
+    }
+
     .login-box input {
-      width: 100%; padding: 10px 12px; background: var(--bg);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      color: var(--text); font-size: 14px; font-family: var(--font);
-      outline: none; transition: border-color .2s;
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 14px;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color .2s;
     }
-    .login-box input:focus { border-color: var(--accent); }
+
+    .login-box input:focus {
+      border-color: var(--accent);
+    }
+
     .login-box button {
-      width: 100%; margin-top: 12px; padding: 10px;
-      background: var(--accent); border: none; border-radius: var(--radius);
-      color: #fff; font-size: 14px; cursor: pointer; font-weight: 600;
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
       transition: background .2s;
     }
-    .login-box button:hover { background: var(--accent2); }
-    .login-error { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
+
+    .login-box button:hover {
+      background: var(--accent2);
+    }
+
+    .login-error {
+      color: var(--red);
+      font-size: 12px;
+      margin-top: 8px;
+      display: none;
+    }
 
     /* App layout */
-    #app { display: none; flex-direction: column; height: 100vh; }
-    #app.active { display: flex; }
+    #app {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #app.active {
+      display: flex;
+    }
 
     /* Header */
     .header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 16px; height: 42px; background: var(--bg2);
-      border-bottom: 1px solid var(--border); flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 42px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
-    .header-left { display: flex; align-items: center; gap: 12px; }
-    .header h1 { font-size: 14px; font-family: var(--font); color: var(--accent); letter-spacing: .5px; }
-    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header h1 {
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--accent);
+      letter-spacing: .5px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     /* Tabs */
     .tabs {
-      display: flex; gap: 0; background: var(--bg2);
-      border-bottom: 1px solid var(--border); flex-shrink: 0;
+      display: flex;
+      gap: 0;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
+
     .tab {
-      padding: 8px 18px; font-size: 12px; cursor: pointer;
-      color: var(--text2); border-bottom: 2px solid transparent;
-      transition: all .15s; user-select: none; font-weight: 500;
+      padding: 8px 18px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text2);
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+      user-select: none;
+      font-weight: 500;
     }
-    .tab:hover { color: var(--text); background: var(--bg3); }
-    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .tab:hover {
+      color: var(--text);
+      background: var(--bg3);
+    }
+
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
 
     /* Small buttons */
     .btn-sm {
-      padding: 5px 12px; font-size: 11px; border-radius: var(--radius);
-      border: 1px solid var(--border); background: var(--bg3);
-      color: var(--text); cursor: pointer; transition: all .15s;
-      font-family: var(--sans); font-weight: 500;
+      padding: 5px 12px;
+      font-size: 11px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--text);
+      cursor: pointer;
+      transition: all .15s;
+      font-family: var(--sans);
+      font-weight: 500;
     }
-    .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-sm.danger { border-color: var(--red); color: var(--red); }
-    .btn-sm.danger:hover { background: var(--red); color: #fff; }
+
+    .btn-sm:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-sm.danger {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .btn-sm.danger:hover {
+      background: var(--red);
+      color: #fff;
+    }
 
     /* Content area */
-    .content { flex: 1; overflow: hidden; position: relative; }
-    .panel { display: none; position: absolute; inset: 0; overflow: auto; }
-    .panel.active { display: flex; flex-direction: column; }
+    .content {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .panel {
+      display: none;
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+    }
+
+    .panel.active {
+      display: flex;
+      flex-direction: column;
+    }
 
     /* Terminal panel */
-    #terminal-panel { padding: 0; }
-    #terminal-container { flex: 1; padding: 4px; }
+    #terminal-panel {
+      padding: 0;
+    }
+
+    #terminal-container {
+      flex: 1;
+      padding: 4px;
+    }
+
     .terminal-toolbar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 6px 12px; background: var(--bg2); border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
-    .terminal-toolbar span { font-size: 11px; color: var(--text2); font-family: var(--font); }
+
+    .terminal-toolbar span {
+      font-size: 11px;
+      color: var(--text2);
+      font-family: var(--font);
+    }
 
     /* File explorer */
-    #files-panel { padding: 0; flex-direction: row !important; }
+    #files-panel {
+      padding: 0;
+      flex-direction: row !important;
+    }
+
     .file-tree {
-      width: 260px; min-width: 200px; border-right: 1px solid var(--border);
-      overflow: auto; background: var(--bg2); flex-shrink: 0;
+      width: 260px;
+      min-width: 200px;
+      border-right: 1px solid var(--border);
+      overflow: auto;
+      background: var(--bg2);
+      flex-shrink: 0;
     }
+
     .file-tree-header {
-      padding: 8px 12px; font-size: 11px; color: var(--text2);
-      border-bottom: 1px solid var(--border); font-weight: 600;
-      text-transform: uppercase; letter-spacing: .5px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
     }
+
     .file-item {
-      display: flex; align-items: center; gap: 6px;
-      padding: 5px 12px; font-size: 12px; cursor: pointer;
-      color: var(--text); transition: background .1s; font-family: var(--font);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text);
+      transition: background .1s;
+      font-family: var(--font);
     }
-    .file-item:hover { background: var(--bg3); }
-    .file-item.active { background: var(--accent); color: #fff; }
-    .file-item .icon { font-size: 13px; }
-    .file-item .size { margin-left: auto; color: var(--text2); font-size: 10px; }
+
+    .file-item:hover {
+      background: var(--bg3);
+    }
+
+    .file-item.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .file-item .icon {
+      font-size: 13px;
+    }
+
+    .file-item .size {
+      margin-left: auto;
+      color: var(--text2);
+      font-size: 10px;
+    }
+
     .file-preview {
-      flex: 1; overflow: auto; padding: 12px;
-      font-family: var(--font); font-size: 12px; line-height: 1.5;
-      white-space: pre-wrap; color: var(--text2);
+      flex: 1;
+      overflow: auto;
+      padding: 12px;
+      font-family: var(--font);
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: var(--text2);
     }
+
     .file-preview-header {
-      padding: 8px 12px; border-bottom: 1px solid var(--border);
-      font-size: 11px; font-family: var(--font); color: var(--text2);
-      background: var(--bg2); flex-shrink: 0;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-family: var(--font);
+      color: var(--text2);
+      background: var(--bg2);
+      flex-shrink: 0;
     }
 
     /* Data Explorer */
-    #data-panel { padding: 16px; gap: 16px; overflow: auto !important; }
+    #data-panel {
+      padding: 16px;
+      gap: 16px;
+      overflow: auto !important;
+    }
 
     .card {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
+
     .card-header {
-      padding: 8px 12px; font-size: 12px; font-weight: 600;
-      border-bottom: 1px solid var(--border); color: var(--text);
-      text-transform: uppercase; letter-spacing: .5px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: .5px;
     }
-    .card-body { padding: 12px; }
+
+    .card-body {
+      padding: 12px;
+    }
 
     /* Pipeline funnel */
     .pipeline-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 8px;
     }
-    .stage-card {
-      text-align: center; padding: 12px 8px;
-      background: var(--bg); border-radius: var(--radius);
-    }
-    .stage-card .count { font-size: 24px; font-weight: 700; font-family: var(--font); }
-    .stage-card .label { font-size: 10px; color: var(--text2); text-transform: uppercase; margin-top: 2px; }
-    .stage-card .bar {
-      height: 3px; margin-top: 6px; border-radius: 2px;
-      background: var(--border); overflow: hidden;
-    }
-    .stage-card .bar-fill { height: 100%; border-radius: 2px; transition: width .3s; }
 
-    .stage-mined .count, .stage-mined .bar-fill { color: var(--accent); background: var(--accent); }
-    .stage-enriched .count, .stage-enriched .bar-fill { color: var(--green); background: var(--green); }
-    .stage-filtered .count, .stage-filtered .bar-fill { color: var(--yellow); background: var(--yellow); }
-    .stage-scored .count, .stage-scored .bar-fill { color: var(--purple); background: var(--purple); }
-    .stage-classified .count, .stage-classified .bar-fill { color: var(--orange); background: var(--orange); }
-    .stage-exported .count, .stage-exported .bar-fill { color: var(--green); background: var(--green); }
+    .stage-card {
+      text-align: center;
+      padding: 12px 8px;
+      background: var(--bg);
+      border-radius: var(--radius);
+    }
+
+    .stage-card .count {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: var(--font);
+    }
+
+    .stage-card .label {
+      font-size: 10px;
+      color: var(--text2);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .stage-card .bar {
+      height: 3px;
+      margin-top: 6px;
+      border-radius: 2px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .stage-card .bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width .3s;
+    }
+
+    .stage-mined .count,
+    .stage-mined .bar-fill {
+      color: var(--accent);
+      background: var(--accent);
+    }
+
+    .stage-enriched .count,
+    .stage-enriched .bar-fill {
+      color: var(--green);
+      background: var(--green);
+    }
+
+    .stage-filtered .count,
+    .stage-filtered .bar-fill {
+      color: var(--yellow);
+      background: var(--yellow);
+    }
+
+    .stage-scored .count,
+    .stage-scored .bar-fill {
+      color: var(--purple);
+      background: var(--purple);
+    }
+
+    .stage-classified .count,
+    .stage-classified .bar-fill {
+      color: var(--orange);
+      background: var(--orange);
+    }
+
+    .stage-exported .count,
+    .stage-exported .bar-fill {
+      color: var(--green);
+      background: var(--green);
+    }
 
     /* Topics table */
-    .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
     .data-table th {
-      text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border);
-      color: var(--text2); font-weight: 600; font-size: 10px; text-transform: uppercase;
+      text-align: left;
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
     }
+
     .data-table td {
-      padding: 6px 10px; border-bottom: 1px solid var(--border);
-      font-family: var(--font); font-size: 11px;
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font);
+      font-size: 11px;
     }
-    .data-table tr:hover td { background: var(--bg3); }
+
+    .data-table tr:hover td {
+      background: var(--bg3);
+    }
 
     .badge {
-      display: inline-block; padding: 2px 6px; border-radius: 3px;
-      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
     }
-    .badge-completed { background: rgba(78,201,122,.15); color: var(--green); }
-    .badge-pending { background: rgba(232,197,71,.15); color: var(--yellow); }
-    .badge-running { background: rgba(91,138,240,.15); color: var(--accent); }
+
+    .badge-completed {
+      background: rgba(78, 201, 122, .15);
+      color: var(--green);
+    }
+
+    .badge-pending {
+      background: rgba(232, 197, 71, .15);
+      color: var(--yellow);
+    }
+
+    .badge-running {
+      background: rgba(91, 138, 240, .15);
+      color: var(--accent);
+    }
+
+    .badge-error {
+      background: rgba(232, 84, 84, .15);
+      color: var(--red);
+    }
 
     /* Profile cards */
     .profile-card {
-      padding: 10px 12px; border-bottom: 1px solid var(--border);
-      display: grid; grid-template-columns: 32px 1fr auto; gap: 10px;
-      align-items: center; cursor: pointer; transition: background .1s;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      cursor: pointer;
+      transition: background .1s;
     }
-    .profile-card:hover { background: var(--bg3); }
+
+    .profile-card:hover {
+      background: var(--bg3);
+    }
+
     .profile-rank {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--bg); display: flex; align-items: center;
-      justify-content: center; font-size: 11px; font-weight: 700;
-      font-family: var(--font); color: var(--accent);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font);
+      color: var(--accent);
     }
-    .profile-info { min-width: 0; }
-    .profile-handle { font-size: 12px; font-weight: 600; font-family: var(--font); }
-    .profile-bio { font-size: 11px; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .profile-info {
+      min-width: 0;
+    }
+
+    .profile-handle {
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font);
+    }
+
+    .profile-bio {
+      font-size: 11px;
+      color: var(--text2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .profile-score {
-      font-size: 16px; font-weight: 700; font-family: var(--font);
-      padding: 4px 8px; border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--font);
+      padding: 4px 8px;
+      border-radius: var(--radius);
       background: var(--bg);
     }
-    .profile-detail { padding: 12px; display: none; }
-    .profile-detail.active { display: block; }
+
+    .profile-detail {
+      padding: 12px;
+      display: none;
+    }
+
+    .profile-detail.active {
+      display: block;
+    }
 
     .score-bar-row {
-      display: flex; align-items: center; gap: 8px; margin: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0;
     }
-    .score-bar-label { font-size: 10px; color: var(--text2); width: 100px; text-align: right; }
-    .score-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .score-bar-value { height: 100%; border-radius: 3px; background: var(--accent); }
-    .score-bar-num { font-size: 10px; color: var(--text); width: 30px; font-family: var(--font); }
+
+    .score-bar-label {
+      font-size: 10px;
+      color: var(--text2);
+      width: 100px;
+      text-align: right;
+    }
+
+    .score-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .score-bar-value {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--accent);
+    }
+
+    .score-bar-num {
+      font-size: 10px;
+      color: var(--text);
+      width: 30px;
+      font-family: var(--font);
+    }
 
     .llm-reasoning {
-      margin-top: 8px; padding: 8px; background: var(--bg);
-      border-radius: var(--radius); font-size: 11px; color: var(--text2);
+      margin-top: 8px;
+      padding: 8px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      font-size: 11px;
+      color: var(--text2);
       line-height: 1.5;
     }
+
     .section-title {
-      font-size: 10px; color: var(--text2); text-transform: uppercase;
-      letter-spacing: .5px; margin: 12px 0 6px; font-weight: 600;
+      font-size: 10px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin: 12px 0 6px;
+      font-weight: 600;
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .file-tree { width: 180px; min-width: 140px; }
-      .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
-      #data-panel { padding: 10px; gap: 10px; }
+      .file-tree {
+        width: 180px;
+        min-width: 140px;
+      }
+
+      .pipeline-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      #data-panel {
+        padding: 10px;
+        gap: 10px;
+      }
     }
+
     @media (max-width: 480px) {
-      .file-tree { width: 120px; min-width: 100px; }
-      .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
-      .tab { padding: 8px 10px; font-size: 11px; }
+      .file-tree {
+        width: 120px;
+        min-width: 100px;
+      }
+
+      .pipeline-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tab {
+        padding: 8px 10px;
+        font-size: 11px;
+      }
     }
 
     /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text2);
+    }
 
     /* Loading */
     .spinner {
-      display: inline-block; width: 16px; height: 16px;
-      border: 2px solid var(--border); border-top-color: var(--accent);
-      border-radius: 50%; animation: spin .6s linear infinite;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
 
-<!-- Login Screen -->
-<div id="login-screen">
-  <div class="login-box">
-    <h1>XACQUISITOR</h1>
-    <p>AI Builder Scout Pipeline</p>
-    <input type="password" id="password-input" placeholder="Enter password" autofocus>
-    <button id="login-btn" onclick="doLogin()">Access</button>
-    <div class="login-error" id="login-error">Invalid password</div>
-  </div>
-</div>
-
-<!-- App -->
-<div id="app">
-  <div class="header">
-    <div class="header-left">
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <div class="login-box">
       <h1>XACQUISITOR</h1>
-    </div>
-    <div class="header-right">
-      <button class="btn-sm" onclick="refreshData()">↻ Refresh</button>
-      <button class="btn-sm danger" onclick="doLogout()">Logout</button>
+      <p>AI Builder Scout Pipeline</p>
+      <input type="password" id="password-input" placeholder="Enter password" autofocus>
+      <button id="login-btn" onclick="doLogin()">Access</button>
+      <div class="login-error" id="login-error">Invalid password</div>
     </div>
   </div>
 
-  <div class="tabs">
-    <div class="tab active" data-tab="terminal" onclick="switchTab('terminal')">▸ Console</div>
-    <div class="tab" data-tab="files" onclick="switchTab('files')">◩ Files</div>
-    <div class="tab" data-tab="data" onclick="switchTab('data')">◈ Data Explorer</div>
-  </div>
+  <!-- App -->
+  <div id="app">
+    <div class="header">
+      <div class="header-left">
+        <h1>XACQUISITOR</h1>
+      </div>
+      <div class="header-right">
+        <button class="btn-sm" onclick="refreshData()">↻ Refresh</button>
+        <button class="btn-sm danger" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
 
-  <div class="content">
-    <!-- Terminal Panel -->
-    <div id="terminal-panel" class="panel active">
-      <div class="terminal-toolbar">
-        <span>Terminal — python .py files only</span>
-        <div style="display:flex;gap:6px;">
-          <button class="btn-sm" onclick="restartTerminal()">⟳ Restart</button>
+    <div class="tabs">
+      <div class="tab active" data-tab="terminal" onclick="switchTab('terminal')">▸ Console</div>
+      <div class="tab" data-tab="files" onclick="switchTab('files')">◩ Files</div>
+      <div class="tab" data-tab="data" onclick="switchTab('data')">◈ Data Explorer</div>
+    </div>
+
+    <div class="content">
+      <!-- Terminal Panel -->
+      <div id="terminal-panel" class="panel active">
+        <div class="terminal-toolbar">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span>Terminal — python .py files only</span>
+            <span id="term-status" class="badge" style="display:none;"></span>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn-sm" onclick="restartTerminal()">⟳ Restart</button>
+          </div>
+        </div>
+        <div id="terminal-container"></div>
+      </div>
+
+      <!-- Files Panel -->
+      <div id="files-panel" class="panel">
+        <div class="file-tree">
+          <div class="file-tree-header">Data Files</div>
+          <div id="file-list"></div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+          <div class="file-preview-header" id="file-path">Select a file to preview</div>
+          <div class="file-preview" id="file-content">
+            <span style="color:var(--text2)">Click a file to view its contents.</span>
+          </div>
         </div>
       </div>
-      <div id="terminal-container"></div>
-    </div>
 
-    <!-- Files Panel -->
-    <div id="files-panel" class="panel">
-      <div class="file-tree">
-        <div class="file-tree-header">Data Files</div>
-        <div id="file-list"></div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
-        <div class="file-preview-header" id="file-path">Select a file to preview</div>
-        <div class="file-preview" id="file-content">
-          <span style="color:var(--text2)">Click a file to view its contents.</span>
+      <!-- Data Explorer Panel -->
+      <div id="data-panel" class="panel">
+        <div id="data-loading" style="text-align:center;padding:40px;">
+          <div class="spinner"></div>
+          <p style="margin-top:8px;font-size:12px;color:var(--text2);">Loading pipeline data...</p>
         </div>
+        <div id="data-content" style="display:none;"></div>
       </div>
-    </div>
-
-    <!-- Data Explorer Panel -->
-    <div id="data-panel" class="panel">
-      <div id="data-loading" style="text-align:center;padding:40px;">
-        <div class="spinner"></div>
-        <p style="margin-top:8px;font-size:12px;color:var(--text2);">Loading pipeline data...</p>
-      </div>
-      <div id="data-content" style="display:none;"></div>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
-<script>
-// --- State ---
-let term = null;
-let ws = null;
-let fitAddon = null;
-let pipelineData = null;
+  <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
+  <script>
+    // --- State ---
+    let term = null;
+    let ws = null;
+    let fitAddon = null;
+    let pipelineData = null;
 
-// --- Auth ---
-async function checkAuth() {
-  try {
-    const r = await fetch('/api/auth-check');
-    const d = await r.json();
-    if (d.authenticated) showApp();
-  } catch(e) {}
-}
+    // --- Auth ---
+    async function checkAuth() {
+      try {
+        const r = await fetch('/api/auth-check');
+        const d = await r.json();
+        if (d.authenticated) showApp();
+      } catch (e) { }
+    }
 
-async function doLogin() {
-  const pw = document.getElementById('password-input').value;
-  const err = document.getElementById('login-error');
-  try {
-    const r = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pw })
+    async function doLogin() {
+      const pw = document.getElementById('password-input').value;
+      const err = document.getElementById('login-error');
+      try {
+        const r = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw })
+        });
+        if (r.ok) {
+          err.style.display = 'none';
+          showApp();
+        } else {
+          err.style.display = 'block';
+        }
+      } catch (e) {
+        err.textContent = 'Connection error';
+        err.style.display = 'block';
+      }
+    }
+
+    async function doLogout() {
+      await fetch('/api/logout', { method: 'POST' });
+      location.reload();
+    }
+
+    document.getElementById('password-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
     });
-    if (r.ok) {
-      err.style.display = 'none';
-      showApp();
-    } else {
-      err.style.display = 'block';
+
+    function showApp() {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').classList.add('active');
+      initTerminal();
+      loadFiles();
+      loadPipeline();
     }
-  } catch(e) {
-    err.textContent = 'Connection error';
-    err.style.display = 'block';
-  }
-}
 
-async function doLogout() {
-  await fetch('/api/logout', { method: 'POST' });
-  location.reload();
-}
-
-document.getElementById('password-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doLogin();
-});
-
-function showApp() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').classList.add('active');
-  initTerminal();
-  loadFiles();
-  loadPipeline();
-}
-
-// --- Tabs ---
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
-  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === name + '-panel'));
-  if (name === 'terminal' && term) {
-    setTimeout(() => { fitAddon.fit(); term.focus(); }, 50);
-  }
-  if (name === 'data' && !pipelineData) loadPipeline();
-}
-
-// --- Terminal ---
-function initTerminal() {
-  if (term) return;
-
-  term = new Terminal({
-    theme: {
-      background: '#0d0f12',
-      foreground: '#c8cdd5',
-      cursor: '#5b8af0',
-      selectionBackground: '#5b8af040',
-      black: '#0d0f12', red: '#e85454', green: '#4ec97a', yellow: '#e8c547',
-      blue: '#5b8af0', magenta: '#a78bfa', cyan: '#5bc4bf', white: '#c8cdd5',
-    },
-    fontFamily: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
-    fontSize: 13,
-    cursorBlink: true,
-    cursorStyle: 'bar',
-    scrollback: 5000,
-  });
-
-  fitAddon = new FitAddon.FitAddon();
-  term.loadAddon(fitAddon);
-  term.open(document.getElementById('terminal-container'));
-  fitAddon.fit();
-
-  connectWS();
-
-  term.onData(data => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: 'input', data }));
+    // --- Tabs ---
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === name + '-panel'));
+      if (name === 'terminal' && term) {
+        setTimeout(() => { fitAddon.fit(); term.focus(); }, 50);
+      }
+      if (name === 'data' && !pipelineData) loadPipeline();
     }
-  });
 
-  window.addEventListener('resize', () => {
-    if (fitAddon) {
+    // --- Terminal ---
+    function updateTermStatus(text, cls) {
+      const el = document.getElementById('term-status');
+      if (el) {
+        el.style.display = 'inline-block';
+        el.textContent = text;
+        el.className = 'badge ' + cls;
+      }
+    }
+
+    function initTerminal() {
+      if (term) return;
+
+      term = new Terminal({
+        theme: {
+          background: '#0d0f12',
+          foreground: '#c8cdd5',
+          cursor: '#5b8af0',
+          selectionBackground: '#5b8af040',
+          black: '#0d0f12', red: '#e85454', green: '#4ec97a', yellow: '#e8c547',
+          blue: '#5b8af0', magenta: '#a78bfa', cyan: '#5bc4bf', white: '#c8cdd5',
+        },
+        fontFamily: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
+        fontSize: 13,
+        cursorBlink: true,
+        cursorStyle: 'bar',
+        scrollback: 5000,
+      });
+
+      fitAddon = new FitAddon.FitAddon();
+      term.loadAddon(fitAddon);
+      term.open(document.getElementById('terminal-container'));
       fitAddon.fit();
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
-      }
-    }
-  });
-}
 
-function connectWS() {
-  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-  ws = new WebSocket(`${proto}://${location.host}/ws`);
+      connectWS();
 
-  ws.onopen = () => {
-    if (term) {
-      fitAddon.fit();
-      ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
-    }
-  };
+      term.onData(data => {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'input', data }));
+        }
+      });
 
-  ws.onmessage = (e) => {
-    try {
-      const msg = JSON.parse(e.data);
-      if (msg.type === 'output' && term) {
-        term.write(msg.data);
-      } else if (msg.type === 'exit') {
-        term.write('\r\n[Session ended]\r\n');
-      }
-    } catch(err) {}
-  };
-
-  ws.onclose = () => {
-    setTimeout(() => {
-      if (document.getElementById('app').classList.contains('active')) {
-        connectWS();
-      }
-    }, 2000);
-  };
-}
-
-async function restartTerminal() {
-  try {
-    await fetch('/api/restart', { method: 'POST' });
-    if (ws) ws.close();
-    if (term) {
-      term.clear();
-      term.write('\r\n[Terminal restarted]\r\n');
-    }
-    setTimeout(connectWS, 500);
-  } catch(e) {}
-}
-
-// --- Files ---
-async function loadFiles(subpath) {
-  const url = '/api/files' + (subpath ? '?path=' + encodeURIComponent(subpath) : '');
-  try {
-    const r = await fetch(url);
-    if (!r.ok) return;
-    const d = await r.json();
-
-    if (d.entries) {
-      const list = document.getElementById('file-list');
-      list.innerHTML = '';
-      d.entries.forEach(e => {
-        const el = document.createElement('div');
-        el.className = 'file-item';
-        const icon = e.type === 'directory' ? '📁' : '📄';
-        const size = e.type === 'file' ? formatSize(e.size) : '';
-        el.innerHTML = `<span class="icon">${icon}</span><span>${e.name}</span><span class="size">${size}</span>`;
-        el.onclick = () => {
-          if (e.type === 'directory') {
-            loadFiles((subpath ? subpath + '/' : '') + e.name);
-          } else {
-            loadFileContent((subpath ? subpath + '/' : '') + e.name);
-            list.querySelectorAll('.file-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
+      window.addEventListener('resize', () => {
+        if (fitAddon) {
+          fitAddon.fit();
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
           }
-        };
-        list.appendChild(el);
+        }
       });
     }
-  } catch(e) {}
-}
 
-async function loadFileContent(filePath) {
-  const pathEl = document.getElementById('file-path');
-  const contentEl = document.getElementById('file-content');
-  pathEl.textContent = 'data/' + filePath;
-  contentEl.textContent = 'Loading...';
+    function connectWS() {
+      updateTermStatus('Connecting...', 'badge-pending');
+      const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+      ws = new WebSocket(`${proto}://${location.host}/ws`);
 
-  try {
-    const r = await fetch('/api/files?path=' + encodeURIComponent(filePath));
-    const d = await r.json();
-    if (d.content) {
-      // Try to pretty-print JSON
+      ws.onopen = () => {
+        updateTermStatus('Connected', 'badge-completed');
+        if (term) {
+          fitAddon.fit();
+          ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+        }
+      };
+
+      ws.onmessage = (e) => {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.type === 'output' && term) {
+            term.write(msg.data);
+          } else if (msg.type === 'exit') {
+            updateTermStatus('Session Ended', 'badge-error');
+          }
+        } catch (err) { }
+      };
+
+      ws.onclose = () => {
+        updateTermStatus('Disconnected', 'badge-error');
+        setTimeout(() => {
+          if (document.getElementById('app').classList.contains('active')) {
+            connectWS();
+          }
+        }, 2000);
+      };
+    }
+
+    async function restartTerminal() {
       try {
-        const parsed = JSON.parse(d.content);
-        contentEl.textContent = JSON.stringify(parsed, null, 2);
-      } catch(e) {
-        contentEl.textContent = d.content;
+        updateTermStatus('Restarting...', 'badge-pending');
+        await fetch('/api/restart', { method: 'POST' });
+        if (ws) ws.close();
+        if (term) {
+          term.clear();
+        }
+        setTimeout(connectWS, 500);
+      } catch (e) { }
+    }
+
+    // --- Files ---
+    async function loadFiles(subpath) {
+      const url = '/api/files' + (subpath ? '?path=' + encodeURIComponent(subpath) : '');
+      try {
+        const r = await fetch(url);
+        if (!r.ok) return;
+        const d = await r.json();
+
+        if (d.entries) {
+          const list = document.getElementById('file-list');
+          list.innerHTML = '';
+          d.entries.forEach(e => {
+            const el = document.createElement('div');
+            el.className = 'file-item';
+            const icon = e.type === 'directory' ? '📁' : '📄';
+            const size = e.type === 'file' ? formatSize(e.size) : '';
+            el.innerHTML = `<span class="icon">${icon}</span><span>${e.name}</span><span class="size">${size}</span>`;
+            el.onclick = () => {
+              if (e.type === 'directory') {
+                loadFiles((subpath ? subpath + '/' : '') + e.name);
+              } else {
+                loadFileContent((subpath ? subpath + '/' : '') + e.name);
+                list.querySelectorAll('.file-item').forEach(i => i.classList.remove('active'));
+                el.classList.add('active');
+              }
+            };
+            list.appendChild(el);
+          });
+        }
+      } catch (e) { }
+    }
+
+    async function loadFileContent(filePath) {
+      const pathEl = document.getElementById('file-path');
+      const contentEl = document.getElementById('file-content');
+      pathEl.textContent = 'data/' + filePath;
+      contentEl.textContent = 'Loading...';
+
+      try {
+        const r = await fetch('/api/files?path=' + encodeURIComponent(filePath));
+        const d = await r.json();
+        if (d.content) {
+          // Try to pretty-print JSON
+          try {
+            const parsed = JSON.parse(d.content);
+            contentEl.textContent = JSON.stringify(parsed, null, 2);
+          } catch (e) {
+            contentEl.textContent = d.content;
+          }
+        }
+      } catch (e) {
+        contentEl.textContent = 'Error loading file.';
       }
     }
-  } catch(e) {
-    contentEl.textContent = 'Error loading file.';
-  }
-}
 
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + 'B';
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + 'K';
-  return (bytes/(1024*1024)).toFixed(1) + 'M';
-}
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + 'B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'K';
+      return (bytes / (1024 * 1024)).toFixed(1) + 'M';
+    }
 
-// --- Data Explorer ---
-async function loadPipeline() {
-  const loading = document.getElementById('data-loading');
-  const content = document.getElementById('data-content');
-  loading.style.display = 'block';
-  content.style.display = 'none';
+    // --- Data Explorer ---
+    async function loadPipeline() {
+      const loading = document.getElementById('data-loading');
+      const content = document.getElementById('data-content');
+      loading.style.display = 'block';
+      content.style.display = 'none';
 
-  try {
-    const r = await fetch('/api/pipeline');
-    pipelineData = await r.json();
-    renderPipeline();
-  } catch(e) {
-    content.innerHTML = '<p style="color:var(--red);padding:20px;">Failed to load pipeline data.</p>';
-    content.style.display = 'block';
-  }
-  loading.style.display = 'none';
-}
+      try {
+        const r = await fetch('/api/pipeline');
+        pipelineData = await r.json();
+        renderPipeline();
+      } catch (e) {
+        content.innerHTML = '<p style="color:var(--red);padding:20px;">Failed to load pipeline data.</p>';
+        content.style.display = 'block';
+      }
+      loading.style.display = 'none';
+    }
 
-function renderPipeline() {
-  if (!pipelineData) return;
-  const content = document.getElementById('data-content');
-  const s = pipelineData.summary;
-  const stages = s.stageCounts || {};
-  const total = s.totalProfiles || 1;
+    function renderPipeline() {
+      if (!pipelineData) return;
+      const content = document.getElementById('data-content');
+      const s = pipelineData.summary;
+      const stages = s.stageCounts || {};
+      const total = s.totalProfiles || 1;
 
-  const stageColors = {
-    mined: { label: 'Mined', cls: 'stage-mined' },
-    enriched: { label: 'Enriched', cls: 'stage-enriched' },
-    filtered: { label: 'Filtered', cls: 'stage-filtered' },
-    scored: { label: 'Scored', cls: 'stage-scored' },
-    classified: { label: 'Classified', cls: 'stage-classified' },
-    exported: { label: 'Exported', cls: 'stage-exported' },
-  };
+      const stageColors = {
+        mined: { label: 'Mined', cls: 'stage-mined' },
+        enriched: { label: 'Enriched', cls: 'stage-enriched' },
+        filtered: { label: 'Filtered', cls: 'stage-filtered' },
+        scored: { label: 'Scored', cls: 'stage-scored' },
+        classified: { label: 'Classified', cls: 'stage-classified' },
+        exported: { label: 'Exported', cls: 'stage-exported' },
+      };
 
-  let html = '';
+      let html = '';
 
-  // Pipeline Overview
-  html += `<div class="card">
+      // Pipeline Overview
+      html += `<div class="card">
     <div class="card-header">Pipeline Overview — ${s.totalProfiles || 0} profiles</div>
     <div class="card-body"><div class="pipeline-grid">`;
 
-  for (const [key, info] of Object.entries(stageColors)) {
-    const count = stages[key] || 0;
-    const pct = Math.round((count / total) * 100);
-    html += `<div class="stage-card ${info.cls}">
+      for (const [key, info] of Object.entries(stageColors)) {
+        const count = stages[key] || 0;
+        const pct = Math.round((count / total) * 100);
+        html += `<div class="stage-card ${info.cls}">
       <div class="count">${count}</div>
       <div class="label">${info.label}</div>
       <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
     </div>`;
-  }
-  html += '</div></div></div>';
+      }
+      html += '</div></div></div>';
 
-  // Topics
-  const topics = s.topics || {};
-  const topicKeys = Object.keys(topics);
-  if (topicKeys.length > 0) {
-    html += `<div class="card">
+      // Topics
+      const topics = s.topics || {};
+      const topicKeys = Object.keys(topics);
+      if (topicKeys.length > 0) {
+        html += `<div class="card">
       <div class="card-header">Topics — ${s.topicsCompleted || 0}/${s.topicsTotal || 0} completed</div>
       <div class="card-body" style="padding:0;">
         <table class="data-table">
           <thead><tr><th>Topic</th><th>Status</th><th>Results</th><th>Last Run</th></tr></thead>
           <tbody>`;
-    for (const [topic, data] of Object.entries(topics)) {
-      const badgeCls = data.status === 'completed' ? 'badge-completed' : data.status === 'running' ? 'badge-running' : 'badge-pending';
-      const lastRun = data.last_run ? new Date(data.last_run).toLocaleString() : '—';
-      html += `<tr>
+        for (const [topic, data] of Object.entries(topics)) {
+          const badgeCls = data.status === 'completed' ? 'badge-completed' : data.status === 'running' ? 'badge-running' : 'badge-pending';
+          const lastRun = data.last_run ? new Date(data.last_run).toLocaleString() : '—';
+          html += `<tr>
         <td>${escHtml(topic)}</td>
         <td><span class="badge ${badgeCls}">${data.status || 'pending'}</span></td>
         <td>${data.results || 0}</td>
         <td style="color:var(--text2)">${lastRun}</td>
       </tr>`;
-    }
-    html += '</tbody></table></div></div>';
-  }
+        }
+        html += '</tbody></table></div></div>';
+      }
 
-  // Results / Scored profiles
-  const results = pipelineData.stages?.results;
-  if (results && results.profiles && results.profiles.length > 0) {
-    html += `<div class="card">
+      // Results / Scored profiles
+      const results = pipelineData.stages?.results;
+      if (results && results.profiles && results.profiles.length > 0) {
+        html += `<div class="card">
       <div class="card-header">Results — ${results.profiles.length} profiles exported</div>
       <div class="card-body" style="padding:0;">`;
 
-    results.profiles.forEach((p, i) => {
-      const scoreColor = p.signal_strength >= 50 ? 'var(--green)' : p.signal_strength >= 30 ? 'var(--yellow)' : 'var(--text2)';
-      html += `<div class="profile-card" onclick="toggleProfileDetail(${i})">
+        results.profiles.forEach((p, i) => {
+          const scoreColor = p.signal_strength >= 50 ? 'var(--green)' : p.signal_strength >= 30 ? 'var(--yellow)' : 'var(--text2)';
+          html += `<div class="profile-card" onclick="toggleProfileDetail(${i})">
         <div class="profile-rank">#${p.rank}</div>
         <div class="profile-info">
           <div class="profile-handle">@${escHtml(p.handle)}</div>
@@ -641,134 +1080,135 @@ function renderPipeline() {
       </div>
       <div class="profile-detail" id="profile-detail-${i}">`;
 
-      // Score breakdown
-      if (p.score_breakdown) {
-        const sb = p.score_breakdown;
-        const bars = [
-          { label: 'LLM Eval', value: sb.llm_eval || 0, max: 35 },
-          { label: 'Semantic', value: sb.semantic || 0, max: 20 },
-          { label: 'Technical', value: sb.technical || 0, max: 15 },
-          { label: 'Engagement', value: sb.tweet_engagement || 0, max: 15 },
-          { label: 'Links', value: sb.links || 0, max: 10 },
-          { label: 'Profile', value: sb.profile_completeness || 0, max: 5 },
-        ];
-        html += '<div class="section-title">Score Breakdown</div>';
-        bars.forEach(b => {
-          const pct = Math.round((b.value / b.max) * 100);
-          html += `<div class="score-bar-row">
+          // Score breakdown
+          if (p.score_breakdown) {
+            const sb = p.score_breakdown;
+            const bars = [
+              { label: 'LLM Eval', value: sb.llm_eval || 0, max: 35 },
+              { label: 'Semantic', value: sb.semantic || 0, max: 20 },
+              { label: 'Technical', value: sb.technical || 0, max: 15 },
+              { label: 'Engagement', value: sb.tweet_engagement || 0, max: 15 },
+              { label: 'Links', value: sb.links || 0, max: 10 },
+              { label: 'Profile', value: sb.profile_completeness || 0, max: 5 },
+            ];
+            html += '<div class="section-title">Score Breakdown</div>';
+            bars.forEach(b => {
+              const pct = Math.round((b.value / b.max) * 100);
+              html += `<div class="score-bar-row">
             <span class="score-bar-label">${b.label}</span>
             <div class="score-bar-track"><div class="score-bar-value" style="width:${pct}%"></div></div>
             <span class="score-bar-num">${b.value}/${b.max}</span>
           </div>`;
-        });
+            });
 
-        if (sb.llm_reasoning) {
-          html += `<div class="llm-reasoning"><strong>LLM Reasoning:</strong> ${escHtml(sb.llm_reasoning)}</div>`;
-        }
-      }
+            if (sb.llm_reasoning) {
+              html += `<div class="llm-reasoning"><strong>LLM Reasoning:</strong> ${escHtml(sb.llm_reasoning)}</div>`;
+            }
+          }
 
-      // Classification
-      if (p.classification) {
-        const c = p.classification;
-        html += `<div class="section-title">Classification</div>
+          // Classification
+          if (p.classification) {
+            const c = p.classification;
+            html += `<div class="section-title">Classification</div>
           <div style="font-size:12px;margin:4px 0;">
             <span class="badge badge-completed">${escHtml(c.llm_category)}</span>
-            <span style="color:var(--text2);font-size:10px;margin-left:6px;">${Math.round((c.llm_confidence||0)*100)}% confidence</span>
+            <span style="color:var(--text2);font-size:10px;margin-left:6px;">${Math.round((c.llm_confidence || 0) * 100)}% confidence</span>
           </div>`;
-        if (c.llm_reasoning) {
-          html += `<div class="llm-reasoning">${escHtml(c.llm_reasoning)}</div>`;
-        }
+            if (c.llm_reasoning) {
+              html += `<div class="llm-reasoning">${escHtml(c.llm_reasoning)}</div>`;
+            }
 
-        if (c.semantic_scores) {
-          html += '<div class="section-title">Semantic Scores</div>';
-          for (const [cat, score] of Object.entries(c.semantic_scores)) {
-            html += `<div class="score-bar-row">
+            if (c.semantic_scores) {
+              html += '<div class="section-title">Semantic Scores</div>';
+              for (const [cat, score] of Object.entries(c.semantic_scores)) {
+                html += `<div class="score-bar-row">
               <span class="score-bar-label">${escHtml(cat)}</span>
-              <div class="score-bar-track"><div class="score-bar-value" style="width:${Math.min(score*5,100)}%;background:var(--purple)"></div></div>
+              <div class="score-bar-track"><div class="score-bar-value" style="width:${Math.min(score * 5, 100)}%;background:var(--purple)"></div></div>
               <span class="score-bar-num">${score.toFixed(1)}</span>
             </div>`;
+              }
+            }
           }
-        }
-      }
 
-      // Technical keywords
-      if (p.score_breakdown?.technical_keywords?.length) {
-        html += `<div class="section-title">Technical Keywords</div>
+          // Technical keywords
+          if (p.score_breakdown?.technical_keywords?.length) {
+            html += `<div class="section-title">Technical Keywords</div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;">`;
-        p.score_breakdown.technical_keywords.forEach(kw => {
-          html += `<span class="badge badge-running">${escHtml(kw)}</span>`;
-        });
-        html += '</div>';
-      }
+            p.score_breakdown.technical_keywords.forEach(kw => {
+              html += `<span class="badge badge-running">${escHtml(kw)}</span>`;
+            });
+            html += '</div>';
+          }
 
-      // Link to profile
-      if (p.profile_url) {
-        html += `<div style="margin-top:10px;">
+          // Link to profile
+          if (p.profile_url) {
+            html += `<div style="margin-top:10px;">
           <a href="${escHtml(p.profile_url)}" target="_blank" style="color:var(--accent);font-size:11px;text-decoration:none;">
             ↗ View on X
           </a>
         </div>`;
+          }
+
+          html += '</div>';
+        });
+        html += '</div></div>';
       }
 
-      html += '</div>';
-    });
-    html += '</div></div>';
-  }
+      // All profiles stages summary table
+      if (pipelineData.stages?.state?.profiles) {
+        const profiles = pipelineData.stages.state.profiles;
+        const handles = Object.keys(profiles);
+        const stageOrder = ['mined', 'enriched', 'filtered', 'scored', 'classified', 'exported'];
 
-  // All profiles stages summary table
-  if (pipelineData.stages?.state?.profiles) {
-    const profiles = pipelineData.stages.state.profiles;
-    const handles = Object.keys(profiles);
-    const stageOrder = ['mined', 'enriched', 'filtered', 'scored', 'classified', 'exported'];
-
-    html += `<div class="card">
+        html += `<div class="card">
       <div class="card-header">All Profiles — ${handles.length} tracked</div>
       <div class="card-body" style="padding:0;max-height:400px;overflow:auto;">
         <table class="data-table">
           <thead><tr><th>Handle</th>`;
-    stageOrder.forEach(st => { html += `<th>${st.charAt(0).toUpperCase() + st.slice(1)}</th>`; });
-    html += '</tr></thead><tbody>';
+        stageOrder.forEach(st => { html += `<th>${st.charAt(0).toUpperCase() + st.slice(1)}</th>`; });
+        html += '</tr></thead><tbody>';
 
-    handles.slice(0, 100).forEach(handle => {
-      const stages = profiles[handle].stages || {};
-      html += `<tr><td style="font-weight:600">@${escHtml(handle)}</td>`;
-      stageOrder.forEach(st => {
-        const done = stages[st];
-        html += `<td>${done ? '✓' : '—'}</td>`;
-      });
-      html += '</tr>';
-    });
+        handles.slice(0, 100).forEach(handle => {
+          const stages = profiles[handle].stages || {};
+          html += `<tr><td style="font-weight:600">@${escHtml(handle)}</td>`;
+          stageOrder.forEach(st => {
+            const done = stages[st];
+            html += `<td>${done ? '✓' : '—'}</td>`;
+          });
+          html += '</tr>';
+        });
 
-    if (handles.length > 100) {
-      html += `<tr><td colspan="${stageOrder.length + 1}" style="color:var(--text2);text-align:center;">... and ${handles.length - 100} more</td></tr>`;
+        if (handles.length > 100) {
+          html += `<tr><td colspan="${stageOrder.length + 1}" style="color:var(--text2);text-align:center;">... and ${handles.length - 100} more</td></tr>`;
+        }
+
+        html += '</tbody></table></div></div>';
+      }
+
+      content.innerHTML = html;
+      content.style.display = 'flex';
+      content.style.flexDirection = 'column';
+      content.style.gap = '16px';
     }
 
-    html += '</tbody></table></div></div>';
-  }
+    function toggleProfileDetail(idx) {
+      const el = document.getElementById('profile-detail-' + idx);
+      if (el) el.classList.toggle('active');
+    }
 
-  content.innerHTML = html;
-  content.style.display = 'flex';
-  content.style.flexDirection = 'column';
-  content.style.gap = '16px';
-}
+    function escHtml(s) {
+      if (!s) return '';
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-function toggleProfileDetail(idx) {
-  const el = document.getElementById('profile-detail-' + idx);
-  if (el) el.classList.toggle('active');
-}
+    function refreshData() {
+      loadFiles();
+      loadPipeline();
+    }
 
-function escHtml(s) {
-  if (!s) return '';
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function refreshData() {
-  loadFiles();
-  loadPipeline();
-}
-
-// --- Init ---
-checkAuth();
-</script>
+    // --- Init ---
+    checkAuth();
+  </script>
 </body>
+
 </html>
